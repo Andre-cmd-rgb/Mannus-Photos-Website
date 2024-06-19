@@ -30,7 +30,7 @@ input_folder = 'images/full'  # Path to your original images folder
 output_folder = 'images/thumbs'  # Path to where thumbnails will be saved
 
 # Specify the size of the thumbnails (width, height) in pixels
-thumbnail_size = (200, 200)
+thumbnail_size = (512, 512)
 
 # Call function to create thumbnails
 create_thumbnails(input_folder, output_folder, thumbnail_size)

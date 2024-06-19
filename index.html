@@ -3,36 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Google Drive Folder</title>
+    <title>Image Gallery</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
+        .gallery {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
+            flex-wrap: wrap;
         }
-        .embed-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
-        .embed-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+        .gallery img {
+            margin: 10px;
+            width: 150px;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <div class="embed-container">
-        <iframe src="https://drive.google.com/embeddedfolderview?id=1TMZB3ZtLb7a2vrardf7zvm-XTPYnCxXG#grid" allowfullscreen></iframe>
-    </div>
+    <h1>Image Gallery</h1>
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        const images = [
+    "Copia di DSC_0012.JPG",
+    "Copia di DSC_0013.JPG",
+    "Copia di DSC_0014.JPG",
+    "Copia di DSC_0016.JPG",
+    "Copia di DSC_0017.JPG",
+    "Copia di DSC_0018.JPG",
+    "Copia di DSC_0020.JPG",
+    "Copia di DSC_0026.JPG",
+    "Copia di DSC_0030.JPG",
+    "Copia di DSC_0031.JPG",
+    "Copia di DSC_0032.JPG",
+    "Copia di DSC_0033.JPG",
+    "Copia di DSC_0034.JPG",
+    "Copia di DSC_0035.JPG",
+    "Copia di DSC_0036.JPG",
+    "Copia di DSC_0037.JPG",
+    "Copia di DSC_0038.JPG",
+    "Copia di DSC_0039.JPG",
+    "Copia di DSC_0040.JPG",
+    "Copia di DSC_0041.JPG",
+    "Copia di DSC_0042.JPG",
+    "Copia di DSC_0043.JPG",
+    "Copia di DSC_0044.JPG",
+    "Copia di DSC_0045.JPG",
+    "Copia di DSC_0046.JPG",
+    "Copia di DSC_0047.JPG",
+    "Copia di DSC_0048.JPG",
+    "Copia di DSC_0049.JPG",
+    "Copia di DSC_0050.JPG",
+    "Copia di DSC_0051.JPG",
+    "Copia di IMG_5785.JPG",
+    "Copia di IMG_5786.JPG",
+    "Copia di IMG_5787.JPG",
+    "Copia di IMG_5788.JPG",
+    "Copia di IMG_5789.JPG",
+    "Copia di IMG_5790.JPG",
+    "Copia di IMG_5791.JPG",
+    "Copia di IMG_5792.JPG",
+    "Copia di IMG_5793.JPG",
+    "Copia di IMG_5794.JPG",
+    "Copia di IMG_5795.JPG",
+    "Copia di IMG_5796.JPG",
+    "Copia di IMG_5797.JPG",
+    "Copia di IMG_5798.JPG",
+    "Copia di IMG_5799.JPG",
+    "Copia di IMG_5800.JPG",
+    "Copia di IMG_5801.JPG",
+    "Copia di IMG_5802.JPG",
+    "Copia di IMG_5803.JPG",
+    "Copia di IMG_5804.JPG",
+    "Copia di IMG_5805.JPG",
+    "Copia di IMG_5806.JPG",
+    "Copia di IMG_E5771.JPG",
+    "Copia di IMG_E5772.JPG",
+    "Copia di IMG_E5773.JPG",
+    "Copia di IMG_E5775.JPG",
+    "Copia di IMG_E5776.JPG",
+    "Copia di IMG_E5777.JPG",
+    "Copia di IMG_E5778.JPG",
+    "Copia di IMG_E5779.JPG",
+    "Copia di IMG_E5781.JPG",
+    "Copia di IMG_E5783.JPG",
+    "Copia di IMG_E5784.JPG",
+    "Copia di IMG_E5785.JPG",
+    "Copia di IMG_E5786.JPG",
+    "Copia di UMHY0271.JPG"
+];
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const gallery = document.getElementById('gallery');
+            images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = `images/thumb/${image}`;
+                gallery.appendChild(imgElement);
+            });
+        });
+    </script>
 </body>
 </html>
