@@ -33,7 +33,7 @@ input_folder = 'images/full'  # Path to your original images folder
 output_folder = 'images/thumbs'  # Path to where thumbnails will be saved
 
 # Specify the division factor
-division_factor = 8
+division_factor = 4
 
 # Call function to create thumbnails
 create_thumbnails(input_folder, output_folder, division_factor)

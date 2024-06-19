@@ -1,139 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Gallery</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
+        .gallery .card {
+            margin-bottom: 20px;
         }
-        .gallery .tile {
-            margin: 10px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
+
         .gallery img {
-            max-width: 150px; /* Limit max width */
+            max-width: 100%; /* Limit max width */
             height: auto; /* Maintain aspect ratio */
-        }
-        .download-button {
-            display: block;
-            margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .download-button:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
-    <h1>Image Gallery</h1>
-    <div class="gallery" id="gallery"></div>
+    <div class="container">
+        <h1 class="my-4 text-center">Image Gallery</h1>
+        <div class="row gallery" id="gallery"></div>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const images = [
-    "Copia di DSC_0012.JPG",
-    "Copia di DSC_0013.JPG",
-    "Copia di DSC_0014.JPG",
-    "Copia di DSC_0016.JPG",
-    "Copia di DSC_0017.JPG",
-    "Copia di DSC_0018.JPG",
-    "Copia di DSC_0020.JPG",
-    "Copia di DSC_0026.JPG",
-    "Copia di DSC_0030.JPG",
-    "Copia di DSC_0031.JPG",
-    "Copia di DSC_0032.JPG",
-    "Copia di DSC_0033.JPG",
-    "Copia di DSC_0034.JPG",
-    "Copia di DSC_0035.JPG",
-    "Copia di DSC_0036.JPG",
-    "Copia di DSC_0037.JPG",
-    "Copia di DSC_0038.JPG",
-    "Copia di DSC_0039.JPG",
-    "Copia di DSC_0040.JPG",
-    "Copia di DSC_0041.JPG",
-    "Copia di DSC_0042.JPG",
-    "Copia di DSC_0043.JPG",
-    "Copia di DSC_0044.JPG",
-    "Copia di DSC_0045.JPG",
-    "Copia di DSC_0046.JPG",
-    "Copia di DSC_0047.JPG",
-    "Copia di DSC_0048.JPG",
-    "Copia di DSC_0049.JPG",
-    "Copia di DSC_0050.JPG",
-    "Copia di DSC_0051.JPG",
-    "Copia di IMG_5785.JPG",
-    "Copia di IMG_5786.JPG",
-    "Copia di IMG_5787.JPG",
-    "Copia di IMG_5788.JPG",
-    "Copia di IMG_5789.JPG",
-    "Copia di IMG_5790.JPG",
-    "Copia di IMG_5791.JPG",
-    "Copia di IMG_5792.JPG",
-    "Copia di IMG_5793.JPG",
-    "Copia di IMG_5794.JPG",
-    "Copia di IMG_5795.JPG",
-    "Copia di IMG_5796.JPG",
-    "Copia di IMG_5797.JPG",
-    "Copia di IMG_5798.JPG",
-    "Copia di IMG_5799.JPG",
-    "Copia di IMG_5800.JPG",
-    "Copia di IMG_5801.JPG",
-    "Copia di IMG_5802.JPG",
-    "Copia di IMG_5803.JPG",
-    "Copia di IMG_5804.JPG",
-    "Copia di IMG_5805.JPG",
-    "Copia di IMG_5806.JPG",
-    "Copia di IMG_E5771.JPG",
-    "Copia di IMG_E5772.JPG",
-    "Copia di IMG_E5773.JPG",
-    "Copia di IMG_E5775.JPG",
-    "Copia di IMG_E5776.JPG",
-    "Copia di IMG_E5777.JPG",
-    "Copia di IMG_E5778.JPG",
-    "Copia di IMG_E5779.JPG",
-    "Copia di IMG_E5781.JPG",
-    "Copia di IMG_E5783.JPG",
-    "Copia di IMG_E5784.JPG",
-    "Copia di IMG_E5785.JPG",
-    "Copia di IMG_E5786.JPG",
-    "Copia di UMHY0271.JPG"
-];
-
+                "Copia di DSC_0012.JPG",
+                "Copia di DSC_0013.JPG",
+                "Copia di DSC_0014.JPG",
+                "Copia di DSC_0016.JPG",
+                "Copia di DSC_0017.JPG",
+                "Copia di DSC_0018.JPG",
+                "Copia di DSC_0020.JPG",
+                "Copia di DSC_0026.JPG",
+                "Copia di DSC_0030.JPG",
+                "Copia di DSC_0031.JPG",
+                "Copia di DSC_0032.JPG",
+                "Copia di DSC_0033.JPG",
+                "Copia di DSC_0034.JPG",
+                "Copia di DSC_0035.JPG",
+                "Copia di DSC_0036.JPG",
+                "Copia di DSC_0037.JPG",
+                "Copia di DSC_0038.JPG",
+                "Copia di DSC_0039.JPG",
+                "Copia di DSC_0040.JPG",
+                "Copia di DSC_0041.JPG",
+                "Copia di DSC_0042.JPG",
+                "Copia di DSC_0043.JPG",
+                "Copia di DSC_0044.JPG",
+                "Copia di DSC_0045.JPG",
+                "Copia di DSC_0046.JPG",
+                "Copia di DSC_0047.JPG",
+                "Copia di DSC_0048.JPG",
+                "Copia di DSC_0049.JPG",
+                "Copia di DSC_0050.JPG",
+                "Copia di DSC_0051.JPG",
+                "Copia di IMG_5785.JPG",
+                "Copia di IMG_5786.JPG",
+                "Copia di IMG_5787.JPG",
+                "Copia di IMG_5788.JPG",
+                "Copia di IMG_5789.JPG",
+                "Copia di IMG_5790.JPG",
+                "Copia di IMG_5791.JPG",
+                "Copia di IMG_5792.JPG",
+                "Copia di IMG_5793.JPG",
+                "Copia di IMG_5794.JPG",
+                "Copia di IMG_5795.JPG",
+                "Copia di IMG_5796.JPG",
+                "Copia di IMG_5797.JPG",
+                "Copia di IMG_5798.JPG",
+                "Copia di IMG_5799.JPG",
+                "Copia di IMG_5800.JPG",
+                "Copia di IMG_5801.JPG",
+                "Copia di IMG_5802.JPG",
+                "Copia di IMG_5803.JPG",
+                "Copia di IMG_5804.JPG",
+                "Copia di IMG_5805.JPG",
+                "Copia di IMG_E5771.JPG",
+                "Copia di IMG_E5772.JPG",
+                "Copia di IMG_E5773.JPG",
+                "Copia di IMG_E5775.JPG",
+                "Copia di IMG_E5776.JPG",
+                "Copia di IMG_E5777.JPG",
+                "Copia di IMG_E5778.JPG",
+                "Copia di IMG_E5779.JPG",
+                "Copia di IMG_E5781.JPG",
+                "Copia di IMG_E5783.JPG",
+                "Copia di IMG_E5784.JPG",
+                "Copia di IMG_E5785.JPG",
+                "Copia di IMG_E5786.JPG",
+                "Copia di UMHY0271.JPG"
+            ];
 
             const gallery = document.getElementById('gallery');
             images.forEach(image => {
-                // Create a tile div
-                const tile = document.createElement('div');
-                tile.className = 'tile';
-                
+                // Create a col div
+                const colDiv = document.createElement('div');
+                colDiv.className = 'col-lg-3 col-md-4 col-sm-6';
+
+                // Create a card div
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'card';
+
                 // Create an image element
                 const imgElement = document.createElement('img');
                 imgElement.src = `images/thumbs/${image}`;
-                
+                imgElement.className = 'card-img-top';
+
+                // Create a card body
+                const cardBody = document.createElement('div');
+                cardBody.className = 'card-body text-center';
+
                 // Create a download button
                 const downloadButton = document.createElement('a');
                 downloadButton.href = `images/full/${image}`;
                 downloadButton.download = image;
-                downloadButton.className = 'download-button';
+                downloadButton.className = 'btn btn-primary';
                 downloadButton.textContent = 'Download';
 
-                // Append image and button to the tile
-                tile.appendChild(imgElement);
-                tile.appendChild(downloadButton);
-                
-                // Append the tile to the gallery
-                gallery.appendChild(tile);
+                // Append image and button to the card body
+                cardBody.appendChild(downloadButton);
+
+                // Append imgElement and cardBody to cardDiv
+                cardDiv.appendChild(imgElement);
+                cardDiv.appendChild(cardBody);
+
+                // Append cardDiv to colDiv
+                colDiv.appendChild(cardDiv);
+
+                // Append colDiv to gallery
+                gallery.appendChild(colDiv);
             });
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
