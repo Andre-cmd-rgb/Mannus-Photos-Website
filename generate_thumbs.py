@@ -1,8 +1,8 @@
 from PIL import Image
 import os
 
-# Function to create thumbnails
-def create_thumbnails(input_folder, output_folder, thumbnail_size=(200, 200)):
+# Function to create thumbnails by dividing the resolution by a specified number
+def create_thumbnails(input_folder, output_folder, division_factor=2):
     # Create output folder if it doesn't exist
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
@@ -16,21 +16,24 @@ def create_thumbnails(input_folder, output_folder, thumbnail_size=(200, 200)):
     for image_file in image_files:
         # Open image using Pillow
         with Image.open(os.path.join(input_folder, image_file)) as img:
-            # Create thumbnail
-            img.thumbnail(thumbnail_size)
+            # Calculate new size
+            new_size = (img.width // division_factor, img.height // division_factor)
+            
+            # Create thumbnail with maintained aspect ratio
+            img.thumbnail(new_size)
             
             # Save thumbnail to output folder
             thumbnail_path = os.path.join(output_folder, image_file)
             img.save(thumbnail_path)
             
-            print(f'Thumbnail created: {thumbnail_path}')
+            print(f'Thumbnail created: {thumbnail_path}, Size: {new_size}')
 
 # Specify input and output folders
 input_folder = 'images/full'  # Path to your original images folder
 output_folder = 'images/thumbs'  # Path to where thumbnails will be saved
 
-# Specify the size of the thumbnails (width, height) in pixels
-thumbnail_size = (512, 512)
+# Specify the division factor
+division_factor = 8
 
 # Call function to create thumbnails
-create_thumbnails(input_folder, output_folder, thumbnail_size)
+create_thumbnails(input_folder, output_folder, division_factor)
