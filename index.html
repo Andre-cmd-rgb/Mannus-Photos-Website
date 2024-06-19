@@ -9,10 +9,27 @@
             display: flex;
             flex-wrap: wrap;
         }
-        .gallery img {
+        .gallery .tile {
             margin: 10px;
-            width: 150px;
-            height: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .gallery img {
+            max-width: 150px; /* Limit max width */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .download-button {
+            display: block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .download-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -21,7 +38,8 @@
     <div class="gallery" id="gallery"></div>
 
     <script>
-        const images = [
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = [
     "Copia di DSC_0012.JPG",
     "Copia di DSC_0013.JPG",
     "Copia di DSC_0014.JPG",
@@ -91,12 +109,29 @@
 ];
 
 
-        document.addEventListener('DOMContentLoaded', function() {
             const gallery = document.getElementById('gallery');
             images.forEach(image => {
+                // Create a tile div
+                const tile = document.createElement('div');
+                tile.className = 'tile';
+                
+                // Create an image element
                 const imgElement = document.createElement('img');
                 imgElement.src = `images/thumbs/${image}`;
-                gallery.appendChild(imgElement);
+                
+                // Create a download button
+                const downloadButton = document.createElement('a');
+                downloadButton.href = `images/full/${image}`;
+                downloadButton.download = image;
+                downloadButton.className = 'download-button';
+                downloadButton.textContent = 'Download';
+
+                // Append image and button to the tile
+                tile.appendChild(imgElement);
+                tile.appendChild(downloadButton);
+                
+                // Append the tile to the gallery
+                gallery.appendChild(tile);
             });
         });
     </script>
