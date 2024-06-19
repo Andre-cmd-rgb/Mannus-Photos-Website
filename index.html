@@ -6,42 +6,33 @@
     <title>Embedded Google Drive Folder</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: #f0f0f0;
         }
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
         .embed-container {
-            left: 0;
-            width: 100%;
-            height: 400px;
+            width: 100vw;
+            height: 100vh;
             position: relative;
         }
         .embed-container iframe {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            position: absolute;
             border: 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Google Drive Embedded Folder</h1>
-        <div class="embed-container">
-            <iframe src="https://drive.google.com/embeddedfolderview?id=1Hkfd0FEIOafciX4BxTYXILMnmxNaJ7rN#grid" allowfullscreen></iframe>
-        </div>
+    <div class="embed-container">
+        <iframe src="https://drive.google.com/embeddedfolderview?id=1Hkfd0FEIOafciX4BxTYXILMnmxNaJ7rN#grid" allowfullscreen></iframe>
     </div>
 </body>
 </html>
