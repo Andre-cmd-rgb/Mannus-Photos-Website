@@ -3,36 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Google Drive Folder</title>
+    <title>Image Gallery</title>
     <style>
         body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
             margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0;
+            min-height: 100vh;
         }
-        .embed-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
-        .embed-container iframe {
-            position: absolute;
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: 0;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox:target {
+            display: flex;
         }
     </style>
 </head>
 <body>
-    <div class="embed-container">
-        <iframe src="https://drive.google.com/embeddedfolderview?id=1TMZB3ZtLb7a2vrardf7zvm-XTPYnCxXG#grid" allowfullscreen></iframe>
+    <div class="gallery" id="gallery"></div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <img id="lightbox-img" src="" alt="Lightbox Image">
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gallery = document.getElementById('gallery');
+            const thumbsFolder = 'images/thumbs/';
+            const fullFolder = 'images/full/';
+
+            fetch(thumbsFolder)
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const images = Array.from(doc.querySelectorAll('a'))
+                        .map(a => a.getAttribute('href'))
+                        .filter(href => href.match(/\.(jpe?g|png|gif)$/i));
+                    
+                    images.forEach(image => {
+                        const thumbElement = document.createElement('img');
+                        thumbElement.src = thumbsFolder + image;
+                        thumbElement.alt = image;
+                        thumbElement.addEventListener('click', () => {
+                            document.getElementById('lightbox-img').src = fullFolder + image;
+                            window.location.hash = 'lightbox';
+                        });
+                        gallery.appendChild(thumbElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching images:', error));
+        });
+    </script>
 </body>
 </html>
