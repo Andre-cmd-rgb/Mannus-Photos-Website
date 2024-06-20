@@ -1,76 +1,143 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Gallery</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Firebase Configuration -->
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
-    <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyCx6h6p1CL9pbvXoee7fDO-EHCrhgKjVqY",
-            authDomain: "gallery-891a6.firebaseapp.com",
-            projectId: "gallery-891a6",
-            storageBucket: "gallery-891a6.appspot.com",
-            messagingSenderId: "35705159084",
-            appId: "1:35705159084:web:c4e56b9431b73f4aa6ce09",
-            measurementId: "G-KZFN51C4VL"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
-    </script>
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .card-img-top {
-            object-fit: cover;
-            height: 100%;
-            width: 100%;
+        .gallery .card {
+            margin-bottom: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%; /* Limit max width */
+            height: auto; /* Maintain aspect ratio */
         }
     </style>
 </head>
 
 <body>
-
-    <div class="container mt-5">
-        <div class="row" id="image-gallery">
-            <!-- Bootstrap cards will be inserted here by JavaScript -->
-        </div>
+    <div class="container">
+        <h1 class="my-4 text-center">Image Gallery</h1>
+        <div class="row gallery" id="gallery"></div>
     </div>
 
-    <!-- Include Bootstrap and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.10/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script>
-        // Read documents from Firestore and render Bootstrap cards
-        db.collection("images").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                let data = doc.data();
-                let cardHtml = `
-        <div class="col-md-3">
-          <div class="card mb-4 box-shadow">
-            <img src="${data.imageurl}" class="card-img-top" alt="${data.imagetitle}">
-            <div class="card-body">
-              <h5 class="card-title">${data.imagetitle}</h5>
-              <p>${data.imagedate}</p>
-              <a href="${data.imageurl}" target="_blank" class="btn btn-primary">Open image</a>
-              <a href="${data.imageurl}" download="${data.imagetitle}" class="btn btn-secondary">Download</a>
-            </div>
-          </div>
-        </div>
-      `;
-                $('#image-gallery').append(cardHtml);
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = [
+                "Copia di DSC_0012.JPG",
+                "Copia di DSC_0013.JPG",
+                "Copia di DSC_0014.JPG",
+                "Copia di DSC_0016.JPG",
+                "Copia di DSC_0017.JPG",
+                "Copia di DSC_0018.JPG",
+                "Copia di DSC_0020.JPG",
+                "Copia di DSC_0026.JPG",
+                "Copia di DSC_0030.JPG",
+                "Copia di DSC_0031.JPG",
+                "Copia di DSC_0032.JPG",
+                "Copia di DSC_0033.JPG",
+                "Copia di DSC_0034.JPG",
+                "Copia di DSC_0035.JPG",
+                "Copia di DSC_0036.JPG",
+                "Copia di DSC_0037.JPG",
+                "Copia di DSC_0038.JPG",
+                "Copia di DSC_0039.JPG",
+                "Copia di DSC_0040.JPG",
+                "Copia di DSC_0041.JPG",
+                "Copia di DSC_0042.JPG",
+                "Copia di DSC_0043.JPG",
+                "Copia di DSC_0044.JPG",
+                "Copia di DSC_0045.JPG",
+                "Copia di DSC_0046.JPG",
+                "Copia di DSC_0047.JPG",
+                "Copia di DSC_0048.JPG",
+                "Copia di DSC_0049.JPG",
+                "Copia di DSC_0050.JPG",
+                "Copia di DSC_0051.JPG",
+                "Copia di IMG_5785.JPG",
+                "Copia di IMG_5786.JPG",
+                "Copia di IMG_5787.JPG",
+                "Copia di IMG_5788.JPG",
+                "Copia di IMG_5789.JPG",
+                "Copia di IMG_5790.JPG",
+                "Copia di IMG_5791.JPG",
+                "Copia di IMG_5792.JPG",
+                "Copia di IMG_5793.JPG",
+                "Copia di IMG_5794.JPG",
+                "Copia di IMG_5795.JPG",
+                "Copia di IMG_5796.JPG",
+                "Copia di IMG_5797.JPG",
+                "Copia di IMG_5798.JPG",
+                "Copia di IMG_5799.JPG",
+                "Copia di IMG_5800.JPG",
+                "Copia di IMG_5801.JPG",
+                "Copia di IMG_5802.JPG",
+                "Copia di IMG_5803.JPG",
+                "Copia di IMG_5804.JPG",
+                "Copia di IMG_5805.JPG",
+                "Copia di IMG_E5771.JPG",
+                "Copia di IMG_E5772.JPG",
+                "Copia di IMG_E5773.JPG",
+                "Copia di IMG_E5775.JPG",
+                "Copia di IMG_E5776.JPG",
+                "Copia di IMG_E5777.JPG",
+                "Copia di IMG_E5778.JPG",
+                "Copia di IMG_E5779.JPG",
+                "Copia di IMG_E5781.JPG",
+                "Copia di IMG_E5783.JPG",
+                "Copia di IMG_E5784.JPG",
+                "Copia di IMG_E5785.JPG",
+                "Copia di IMG_E5786.JPG",
+                "Copia di UMHY0271.JPG"
+            ];
+
+            const gallery = document.getElementById('gallery');
+            images.forEach(image => {
+                // Create a col div
+                const colDiv = document.createElement('div');
+                colDiv.className = 'col-lg-3 col-md-4 col-sm-6';
+
+                // Create a card div
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'card';
+
+                // Create an image element
+                const imgElement = document.createElement('img');
+                imgElement.src = `images/thumbs/${image}`;
+                imgElement.className = 'card-img-top';
+
+                // Create a card body
+                const cardBody = document.createElement('div');
+                cardBody.className = 'card-body text-center';
+
+                // Create a download button
+                const downloadButton = document.createElement('a');
+                downloadButton.href = `images/full/${image}`;
+                downloadButton.download = image;
+                downloadButton.className = 'btn btn-primary';
+                downloadButton.textContent = 'Download';
+
+                // Append image and button to the card body
+                cardBody.appendChild(downloadButton);
+
+                // Append imgElement and cardBody to cardDiv
+                cardDiv.appendChild(imgElement);
+                cardDiv.appendChild(cardBody);
+
+                // Append cardDiv to colDiv
+                colDiv.appendChild(cardDiv);
+
+                // Append colDiv to gallery
+                gallery.appendChild(colDiv);
             });
         });
     </script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
