@@ -119,6 +119,7 @@ class ImageUploader(QWidget):
         bucket = storage.bucket()
         blob = bucket.blob(f'images/full/{image_id}.jpg')
         blob.upload_from_filename(image_path)
+        blob.make_public()  # Make the blob publicly accessible
         return blob.public_url
 
     def uploadThumbnail(self, image_path, image_id):
@@ -126,6 +127,7 @@ class ImageUploader(QWidget):
         bucket = storage.bucket()
         blob = bucket.blob(f'images/thumbs/{image_id}.jpg')
         blob.upload_from_string(thumbnail_data, content_type='image/jpeg')
+        blob.make_public()  # Make the blob publicly accessible
         return blob.public_url
 
     def clearUI(self):
