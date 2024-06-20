@@ -1,18 +1,35 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Gallery</title>
-    <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card-img-top {
+            object-fit: cover;
+            height: 300px; /* Adjust height as needed */
+            width: 100%;
+        }
+    </style>
+</head>
 
-    <!-- Firebase Configuration -->
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Image Gallery</h1>
+        <div class="row" id="image-gallery">
+            <!-- Bootstrap cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"></script>
+
     <script>
-        var firebaseConfig = {
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
             apiKey: "AIzaSyCx6h6p1CL9pbvXoee7fDO-EHCrhgKjVqY",
             authDomain: "gallery-891a6.firebaseapp.com",
             projectId: "gallery-891a6",
@@ -21,56 +38,45 @@
             appId: "1:35705159084:web:c4e56b9431b73f4aa6ce09",
             measurementId: "G-KZFN51C4VL"
         };
+
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
-    </script>
+        const db = firebase.firestore();
 
-    <style>
-        .card-img-top {
-            object-fit: cover;
-            height: 100%;
-            width: 100%;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container mt-5">
-        <div class="row" id="image-gallery">
-            <!-- Bootstrap cards will be inserted here by JavaScript -->
-        </div>
-    </div>
-
-    <!-- Include Bootstrap and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.10/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        // TODO: retrieve docs through gs:// api
-        // Read documents from Firestore and render Bootstrap cards
-        db.collection("images").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                let data = doc.data();
-                let cardHtml = `
-        <div class="col-md-3">
-          <div class="card mb-4 box-shadow">
-            <img src="${data.imageurl}" class="card-img-top" alt="${data.imagetitle}">
-            <div class="card-body">
-              <h5 class="card-title">${data.imagetitle}</h5>
-              <p>${data.imagedate}</p>
-              <a href="${data.imageurl}" target="_blank" class="btn btn-primary">Open image</a>
-            </div>
-          </div>
-        </div>
-      `;
-                $('#image-gallery').append(cardHtml);
+        // Function to render image cards
+        function renderImageCards() {
+            db.collection("images").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    let data = doc.data();
+                    let cardHtml = `
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="${data.fullImageUrl}" class="card-img-top" alt="${data.title}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${data.title}</h5>
+                                    <p class="card-text">${data.description}</p>
+                                    <a href="${data.fullImageUrl}" target="_blank" class="btn btn-primary">View Full Size</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('image-gallery').innerHTML += cardHtml;
+                });
+            }).catch((error) => {
+                console.error("Error fetching documents: ", error);
             });
+        }
+
+        // Call renderImageCards function when the page is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            renderImageCards();
         });
     </script>
 
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.10/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
