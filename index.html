@@ -49,7 +49,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // TODO: retrieve docs through gs:// api
         // Read documents from Firestore and render Bootstrap cards
         db.collection("images").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -62,6 +61,7 @@
               <h5 class="card-title">${data.imagetitle}</h5>
               <p>${data.imagedate}</p>
               <a href="${data.imageurl}" target="_blank" class="btn btn-primary">Open image</a>
+              <a href="${data.imageurl}" download="${data.imagetitle}" class="btn btn-secondary">Download</a>
             </div>
           </div>
         </div>
